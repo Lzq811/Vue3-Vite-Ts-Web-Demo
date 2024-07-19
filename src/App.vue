@@ -1,92 +1,61 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
+import { onMounted } from 'vue'
+import ScreenFlex from './views/ScreenFlex.vue'
 
-import HelloWorld from './components/HelloWorld.vue'
-const data = [
-  {
-    name: 'tome',
-    age: 18
+onMounted(() => {
+  InitLayout()
+})
+
+const InitLayout = () => {
+  Adaptive()
+  window.onresize = () => {
+    Adaptive()
   }
-]
+}
+
+const Adaptive = () => {
+  /**
+   * 根据UI给的规范定义
+   * 主标题 20
+   * 标题 18
+   * 小标题 16
+   * 正文 14
+   * 辅助文字 12
+   * 那默认使用正文文字 14
+   * 在UI是 1920 * 1080的基础上进行计算
+   * ! 如果UI基础不是 1920 的话还需要重新计算
+   */
+  const htmlEl: HTMLBaseElement | any = document.querySelector('html')
+  if (htmlEl.clientWidth <= 1280) {
+    const miniSize = 14 / (1920 / 1280) //  ≈ 9.33
+    htmlEl.style.fontSize = `${miniSize}px`
+  } else {
+    const baseMultiple = 1920 / 14 // ≈ 137.14
+    htmlEl.style.fontSize = `${htmlEl.clientWidth / baseMultiple}px`
+  }
+}
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
-
-  <RouterView />
+  <div class="layout-container">
+    <h1 class="level-title">hello world !!!</h1>
+    <div class="son-box">子盒子</div>
+  </div>
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
+.layout-container {
+  height: 100%;
+  overflow-x: auto;
+  overflow-y: scroll;
 }
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+.level-title {
+  font-size: 28px;
+  font-weight: 700;
 }
-
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
+.son-box {
+  height: 150%;
+  background-color: #e4393c;
 }
 </style>
