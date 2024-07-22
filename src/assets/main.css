@@ -3,7 +3,8 @@
 
 #app {
   border: 1px solid red;
-  /* min-width: 1920px; */
+  max-width: 1920px;
+  margin: 0 auto;
   height: 100%;
   overflow: hidden;
   background-color: #ccc;

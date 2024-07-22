@@ -27,12 +27,18 @@ const Adaptive = () => {
    * ! 如果UI基础不是 1920 的话还需要重新计算
    */
   const htmlEl: HTMLBaseElement | any = document.querySelector('html')
-  if (htmlEl.clientWidth <= 1280) {
+  const screenWidth = htmlEl.clientWidth
+  if (screenWidth <= 1280) {
+    // 窗口小于 1280 出现滚动条，页面大小不再缩放
     const miniSize = 14 / (1920 / 1280) //  ≈ 9.33
     htmlEl.style.fontSize = `${miniSize}px`
+  } else if (screenWidth > 1920) {
+    // 窗口大于 1920 页面两侧出现留白，页面大小不再缩放
+    const maxSize = 14 // 默认的正文大小
+    htmlEl.style.fontSize = `${maxSize}px`
   } else {
     const baseMultiple = 1920 / 14 // ≈ 137.14
-    htmlEl.style.fontSize = `${htmlEl.clientWidth / baseMultiple}px`
+    htmlEl.style.fontSize = `${screenWidth / baseMultiple}px`
   }
 }
 </script>
