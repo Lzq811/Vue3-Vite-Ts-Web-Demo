@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 import { onMounted } from 'vue'
-import ScreenFlex from './views/ScreenFlex.vue'
+import Login from './views/Login.vue'
 
 onMounted(() => {
   InitLayout()
@@ -33,8 +33,8 @@ const Adaptive = () => {
     const miniSize = 14 / (1920 / 1280) //  ≈ 9.33
     htmlEl.style.fontSize = `${miniSize}px`
   } else if (screenWidth > 1920) {
-    // 窗口大于 1920 页面两侧出现留白，页面大小不再缩放
-    const maxSize = 14 // 默认的正文大小
+    // 窗口大于 1 出现滚动条，页面大小不再缩放
+    const maxSize = 20 / (1920 / 1280) //  ≈ 9.33
     htmlEl.style.fontSize = `${maxSize}px`
   } else {
     const baseMultiple = 1920 / 14 // ≈ 137.14
@@ -45,8 +45,9 @@ const Adaptive = () => {
 
 <template>
   <div class="layout-container">
-    <h1 class="level-title">hello world !!!</h1>
-    <div class="son-box">子盒子</div>
+    <!-- <h1 class="level-title">hello world !!!</h1>
+    <div class="son-box">子盒子</div> -->
+    <Login />
   </div>
 </template>
 
